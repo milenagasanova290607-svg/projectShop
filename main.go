@@ -2,65 +2,50 @@ package main
 
 import "fmt"
 
-func calculatePrice(price int, quantity int) int {
-	return price * quantity
+type Product struct {
+	ID       int
+	Name     string
+	Category string
+	Price    int
+	Size     string
+	Quantity int
 }
 
 func main() {
-
-	shopName := "Онлайн магазин одежды"
-	productName := "Женская белая футболка"
-	price := 600
-	quantity := 3000
-	buyQuantity := 6
-	if buyQuantity <= quantity {
-		fmt.Println("Заказ успешно оформлен")
-	} else {
-		fmt.Print("Недостаточно товара на складе")
-		return
-	}
-	totalPrice := calculatePrice(price, buyQuantity)
-	fmt.Println("Стоимость заказа:", totalPrice)
-	remainingQuantity := quantity - buyQuantity
-
-	fmt.Println("Название магазина:", shopName)
-	fmt.Println("Название товара:", productName)
-	fmt.Println("Цена товара:", price)
-	fmt.Println("Количество товара:", quantity)
-	fmt.Println("Количество заказа покупателя:", buyQuantity)
-	fmt.Println("Стоимость заказа:", totalPrice)
-	fmt.Println("Остаток на складе:", remainingQuantity)
-	for i := 1; i <= buyQuantity; i++ {
-		fmt.Println("Футболка №", i)
+	product1 := Product{
+		ID:       1,
+		Name:     "Футболка белая",
+		Category: "Футболки",
+		Price:    600,
+		Size:     "M",
+		Quantity: 2000,
 	}
 
-	products := []string{"Футболка", "Джинсы", "Лонгслив", "Юбка", "Толстовка", "Зип-худи", "Сапоги", "Кроссовки"}
-	products = append(products, "Аксессуары")
-	for m := 0; m < len(products); m++ {
-		fmt.Println(m+1, products[m])
+	product2 := Product{
+		ID:       2,
+		Name:     "Джинсы серые",
+		Category: "Джинсы",
+		Price:    2000,
+		Size:     "M",
+		Quantity: 2500,
 	}
-	fmt.Println("Всего товаров:", len(products))
+	fmt.Println("Товар №1")
+	fmt.Println("ID товара:", product1.ID)
+	fmt.Println("Название товара:", product1.Name)
+	fmt.Println("Категория товара:", product1.Category)
+	fmt.Println("Цена:", product1.Price)
+	fmt.Println("Размер:", product1.Size)
+	fmt.Println("Количество:", product1.Quantity)
 
-	prices := make(map[string]int)
-	prices["Футболка"] = 600
-	prices["Джинсы"] = 2000
-	prices["Лонгслив"] = 1000
-	prices["Юбка"] = 1000
-	prices["Толстовка"] = 1500
-	prices["Зип-худи"] = 1500
-	prices["Сапоги"] = 4000
-	prices["Кроссовки"] = 3000
-	prices["Аксессуары"] = 300
+	fmt.Println("Товар №2")
+	fmt.Println("ID товара:", product2.ID)
+	fmt.Println("Название товара:", product2.Name)
+	fmt.Println("Категория товара:", product2.Category)
+	fmt.Println("Цена:", product2.Price)
+	fmt.Println("Размер:", product2.Size)
+	fmt.Println("Количество:", product2.Quantity)
 
-	if v, done := prices["Джинсы"]; done {
-		fmt.Println("Цена джинсов:", v)
-	} else {
-		fmt.Println("Товара нет")
-	}
-	fmt.Println("Каталог товаров:")
-	for t, p := range prices {
-		fmt.Println("Товар:", t, "Цена товара:", p)
-	}
+	product1.Price = 700.00
 
-	fmt.Println("Всего товаров:", len(prices))
+	fmt.Println("Новая цена футболки:", product1.Price)
 }
