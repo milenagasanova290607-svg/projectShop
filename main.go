@@ -2,13 +2,56 @@ package main
 
 import "fmt"
 
+type Money = int
+type ID = int
+type Role = string
+
 type Product struct {
-	ID       int
+	ID       ID
 	Name     string
 	Category string
-	Price    int
+	Price    Money
 	Size     string
 	Quantity int
+}
+
+type User struct {
+	ID    int
+	Name  string
+	Login string
+	Role  Role
+}
+
+type Informer interface {
+	showInfo()
+}
+
+func printInfo(inf Informer) {
+	inf.showInfo()
+}
+
+func (p Product) showInfo() {
+	fmt.Println("ID товара:", p.ID)
+	fmt.Println("Название товара:", p.Name)
+	fmt.Println("Категория товара:", p.Category)
+	fmt.Println("Цена:", p.Price)
+	fmt.Println("Размер:", p.Size)
+	fmt.Println("Количество:", p.Quantity)
+}
+
+func (u User) showInfo() {
+	fmt.Println("ID покупателя:", u.ID)
+	fmt.Println("Имя покупателя:", u.Name)
+	fmt.Println("Логин:", u.Login)
+	fmt.Println("Роль:", u.Role)
+}
+
+func (p *Product) changePrice(newPrice int) {
+	p.Price = newPrice
+}
+
+func (p *Product) changeQuantity(newQuantity int) {
+	p.Quantity = newQuantity
 }
 
 func main() {
@@ -29,23 +72,35 @@ func main() {
 		Size:     "M",
 		Quantity: 2500,
 	}
-	fmt.Println("Товар №1")
-	fmt.Println("ID товара:", product1.ID)
-	fmt.Println("Название товара:", product1.Name)
-	fmt.Println("Категория товара:", product1.Category)
-	fmt.Println("Цена:", product1.Price)
-	fmt.Println("Размер:", product1.Size)
-	fmt.Println("Количество:", product1.Quantity)
 
-	fmt.Println("Товар №2")
-	fmt.Println("ID товара:", product2.ID)
-	fmt.Println("Название товара:", product2.Name)
-	fmt.Println("Категория товара:", product2.Category)
-	fmt.Println("Цена:", product2.Price)
-	fmt.Println("Размер:", product2.Size)
-	fmt.Println("Количество:", product2.Quantity)
+	user1 := User{
+		ID:    1,
+		Name:  "Милена",
+		Login: "milena2906",
+		Role:  "client",
+	}
 
-	product1.Price = 700.00
+	user2 := User{
+		ID:    2,
+		Name:  "Александра",
+		Login: "nalazet",
+		Role:  "client",
+	}
+
+	printInfo(product1)
+
+	printInfo(product2)
+
+	printInfo(user1)
+
+	printInfo(user2)
+
+	product1.changePrice(800)
+
+	product2.changeQuantity(1500)
 
 	fmt.Println("Новая цена футболки:", product1.Price)
+
+	fmt.Println("Новое количество джинсов:", product2.Quantity)
+
 }
