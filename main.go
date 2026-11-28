@@ -58,17 +58,15 @@ func (p *Product) changeQuantity(newQuantity int) {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Добро пожаловать в Интернет-магазин одежды")
-	fmt.Println("Метод запроса:", r.Method)
-	fmt.Println("Путь запроса:", r.URL.Path)
+	http.ServeFile(w, r, "templates/home.html")
 }
 
 func productsHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Каталог товаров")
+	http.ServeFile(w, r, "templates/products.html")
 }
 
 func cartHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Корзина")
+	http.ServeFile(w, r, "templates/cart.html")
 }
 
 func main() {
