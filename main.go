@@ -63,6 +63,14 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Путь запроса:", r.URL.Path)
 }
 
+func productsHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Каталог товаров")
+}
+
+func cartHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Корзина")
+}
+
 func main() {
 
 	product1 := Product{
@@ -114,6 +122,10 @@ func main() {
 	fmt.Println("Новое количество джинсов:", product2.Quantity)
 
 	http.HandleFunc("/", homeHandler)
+
+	http.HandleFunc("/products", productsHandler)
+
+	http.HandleFunc("/cart", cartHandler)
 
 	fmt.Println("Запуск сервера: http://localhost:8080")
 
