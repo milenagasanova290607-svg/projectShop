@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 type Money = int
 type ID = int
@@ -54,7 +57,14 @@ func (p *Product) changeQuantity(newQuantity int) {
 	p.Quantity = newQuantity
 }
 
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Добро пожаловать в Интернет-магазин одежды")
+	fmt.Println("Метод запроса:", r.Method)
+	fmt.Println("Путь запроса:", r.URL.Path)
+}
+
 func main() {
+
 	product1 := Product{
 		ID:       1,
 		Name:     "Футболка белая",
@@ -102,5 +112,11 @@ func main() {
 	fmt.Println("Новая цена футболки:", product1.Price)
 
 	fmt.Println("Новое количество джинсов:", product2.Quantity)
+
+	http.HandleFunc("/", homeHandler)
+
+	fmt.Println("Запуск сервера: http://localhost:8080")
+
+	http.ListenAndServe("localhost:8080", nil)
 
 }
